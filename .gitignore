@@ -1,5 +1,4 @@
 .idea
-server/node_modules
-server/package-lock.json
-server/dist
-server/.vercel
+package-lock.json
+node_modules
+dist
