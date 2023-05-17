@@ -11,8 +11,8 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique
+  id            Int          @id @default(autoincrement())
+  email         String       @unique
   firstName     String
   lastName      String
   biography     String?
@@ -23,10 +23,14 @@ model User {
   joinEvents    String?
   historyEvents String?
   createdEvents String?
+  reviews       Reviews[]
+  tickets       Tickets[]
+  comments      Comments[]
+  favourites    Favourites[]
 }
 
 model Event {
-  id              Int      @id @default(autoincrement())
+  id              Int          @id @default(autoincrement())
   name            String
   description     String
   organizator     String
@@ -35,9 +39,11 @@ model Event {
   planedAt        DateTime
   theme           String?
   place           String?
-  comments        String?
   price           Int?
   availiablePlace Int?
+  reviews         Reviews[]
+  comments        Comments[]
+  event           Favourites[]
 }
 
 model Tickets {
@@ -45,7 +51,8 @@ model Tickets {
   event   String
   type    String
   status  String
-  ownerId String
+  ownerId Int
+  user    User   @relation(fields: [ownerId], references: [id])
 }
 
 model Messages {
@@ -56,8 +63,11 @@ model Messages {
 }
 
 model Favourites {
-  userId  String
-  eventId String
+  id      Int   @id
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id])
+  eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
 }
 
 model Partners {
@@ -71,14 +81,18 @@ model Partners {
 model Comments {
   id          Int      @id @default(autoincrement())
   userId      Int
+  user        User     @relation(fields: [userId], references: [id])
   eventId     Int
+  event       Event    @relation(fields: [eventId], references: [id])
   commentText String
   createdAt   DateTime
 }
 
 model Reviews {
-  id      Int @id @default(autoincrement())
+  id      Int   @id @default(autoincrement())
   userId  Int
+  user    User  @relation(fields: [userId], references: [id])
   eventId Int
+  event   Event @relation(fields: [eventId], references: [id])
   review  Int
 }
