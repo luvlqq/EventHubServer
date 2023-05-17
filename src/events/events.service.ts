@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateEventDto } from './dto/create.event.dto';
 
@@ -15,20 +15,27 @@ export class EventsService {
   }
 
   // * Join to event
-  joinToEvent(id) {
-    return this.prisma.event.update(id);
+  // TODO make an event follow service
+  async joinToEvent(id: number) {
+    const userIsJoin = await this.prisma.user.findUnique({ where: { id } });
+    if (userIsJoin) {
+      throw new BadRequestException('You already join!');
+    }
+    // await this.prisma.user.create({ data: { joinEvents } });
   }
 
   // * Create and event
   createAnEvent(dto: CreateEventDto) {
-    const createAnEvent = this.prisma.event.create({ data: dto });
+    return this.prisma.event.create({ data: dto });
   }
 
   // * Delete an event
-  deleteAnEvent(id) {
-    return this.prisma.event.delete(id);
+  deleteAnEvent(id: number) {
+    return this.prisma.event.delete({ where: { id } });
   }
 
   // * Update event details
-  editAnEvent() {}
+  editAnEvent(id: number, dto: CreateEventDto) {
+    return this.prisma.event.update({ where: { id }, data: dto });
+  }
 }
