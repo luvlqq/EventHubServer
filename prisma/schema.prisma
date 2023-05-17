@@ -30,20 +30,20 @@ model User {
 }
 
 model Event {
-  id              Int          @id @default(autoincrement())
-  name            String
-  description     String
-  organizer       String
-  bannerImg       String?
-  createdAt       DateTime
-  planedAt        DateTime
-  theme           String?
-  place           String?
-  price           Int?
-  availiablePlace Int?
-  reviews         Reviews[]
-  comments        Comments[]
-  event           Favourites[]
+  id             Int          @id @default(autoincrement())
+  name           String
+  description    String
+  organizer      String
+  bannerImg      String?
+  createdAt      DateTime
+  planedAt       DateTime
+  theme          String?
+  place          String?
+  price          Int?
+  availablePlace Int?
+  reviews        Reviews[]
+  comments       Comments[]
+  event          Favourites[]
 }
 
 model Tickets {
