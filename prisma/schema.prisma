@@ -18,7 +18,7 @@ model User {
   biography     String?
   avatar        String?
   hashPassword  String
-  createdAt     DateTime
+  createdAt     DateTime     @default(now())
   isAdmin       Boolean
   joinEvents    String?
   historyEvents String?
@@ -35,7 +35,7 @@ model Event {
   description    String
   organizer      String
   bannerImg      String?
-  createdAt      DateTime
+  createdAt      DateTime     @default(now())
   planedAt       DateTime
   theme          String?
   place          String?
@@ -58,7 +58,7 @@ model Tickets {
 model Messages {
   id            Int      @id @default(autoincrement())
   messageAuthor String
-  createdAt     DateTime
+  createdAt     DateTime @default(now())
   messageText   String
 }
 
@@ -85,7 +85,7 @@ model Comments {
   eventId     Int
   event       Event    @relation(fields: [eventId], references: [id])
   commentText String
-  createdAt   DateTime
+  createdAt   DateTime @default(now())
 }
 
 model Reviews {
