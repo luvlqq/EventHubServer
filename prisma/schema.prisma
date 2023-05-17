@@ -33,7 +33,7 @@ model Event {
   id              Int          @id @default(autoincrement())
   name            String
   description     String
-  organizator     String
+  organizer       String
   bannerImg       String?
   createdAt       DateTime
   planedAt        DateTime
