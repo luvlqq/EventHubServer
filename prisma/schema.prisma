@@ -20,7 +20,8 @@ model User {
   hashPassword  String
   createdAt     DateTime     @default(now())
   isAdmin       Boolean
-  joinEvents    String?
+  joinEvents    Int
+  userEvents    Event        @relation(fields: [joinEvents], references: [id])
   historyEvents String?
   createdEvents String?
   reviews       Reviews[]
@@ -44,6 +45,7 @@ model Event {
   reviews        Reviews[]
   comments       Comments[]
   event          Favourites[]
+  user           User[]
 }
 
 model Tickets {
