@@ -11,6 +11,74 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  login String
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  firstName     String
+  lastName      String
+  biography     String?
+  avatar        String?
+  hashPassword  String
+  createdAt     DateTime
+  isAdmin       Boolean
+  joinEvents    String?
+  historyEvents String?
+  createdEvents String?
+}
+
+model Event {
+  id              Int      @id @default(autoincrement())
+  name            String
+  description     String
+  organizator     String
+  bannerImg       String?
+  createdAt       DateTime
+  planedAt        DateTime
+  theme           String?
+  place           String?
+  comments        String?
+  price           Int?
+  availiablePlace Int?
+}
+
+model Tickets {
+  id      Int    @id @default(autoincrement())
+  event   String
+  type    String
+  status  String
+  ownerId String
+}
+
+model Messages {
+  id            Int      @id @default(autoincrement())
+  messageAuthor String
+  createdAt     DateTime
+  messageText   String
+}
+
+model Favourites {
+  userId  String
+  eventId String
+}
+
+model Partners {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  img         String?
+  mail        String
+}
+
+model Comments {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  eventId     Int
+  commentText String
+  createdAt   DateTime
+}
+
+model Reviews {
+  id      Int @id @default(autoincrement())
+  userId  Int
+  eventId Int
+  review  Int
 }
